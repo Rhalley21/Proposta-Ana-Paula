@@ -69,13 +69,13 @@
 
   /* ===== NAV ===== */
   nav{position:sticky; top:0; z-index:100; background:var(--bg-deep); border-bottom:1px solid var(--border);}
-  .nav-inner{position:relative; z-index:1; max-width:1440px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:16px 40px; gap:24px;}
+  .nav-inner{position:relative; z-index:1; max-width:1440px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:16px 40px; gap:18px;}
   .brand{display:flex; align-items:center; gap:12px; flex-shrink:0;}
-  .brand-logo{width:36px; height:36px; border-radius:8px; border:1px solid var(--border-strong); object-fit:cover; flex-shrink:0;}
-  .brand .name{font-family:'Inter',sans-serif; font-weight:800; font-size:17px; letter-spacing:0.02em; color:var(--ink);}
+  .brand-logo{height:38px; width:auto; object-fit:contain; flex-shrink:0;}
+  .brand .name{font-family:'Inter',sans-serif; font-weight:800; font-size:16px; letter-spacing:0.02em; color:var(--ink); white-space:nowrap;}
   .brand .name span{color:var(--ink-dim); font-weight:600;}
-  .navlinks{display:flex; flex-wrap:wrap; gap:20px; list-style:none; justify-content:flex-end;}
-  .navlinks a{font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:var(--ink-muted); padding-bottom:6px; border-bottom:2px solid transparent; transition:color .2s, border-color .2s; white-space:nowrap;}
+  .navlinks{display:flex; flex-wrap:wrap; gap:15px; list-style:none; justify-content:flex-end;}
+  .navlinks a{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-muted); padding-bottom:6px; border-bottom:2px solid transparent; transition:color .2s, border-color .2s; white-space:nowrap;}
   .navlinks a:hover, .navlinks a.active{color:var(--blue-bright); border-bottom-color:var(--blue);}
 
   .nav-toggle{
@@ -216,6 +216,10 @@
 
   footer{padding:50px 60px; text-align:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-dim); letter-spacing:.06em;}
 
+  @media (max-width: 1470px){
+    .brand .name span{display:none;}
+  }
+
   @media (max-width: 1080px){
     .cover-title{font-size:40px;}
     section{padding:100px 26px 70px;}
@@ -265,7 +269,7 @@
   }
 
   /* Menu hambúrguer — por último para vencer a cascata em telas estreitas */
-  @media (max-width: 900px){
+  @media (max-width: 1280px){
     .nav-toggle{display:flex;}
     .navlinks{
       display:none; position:absolute; top:100%; left:0; right:0;
@@ -289,7 +293,7 @@
   <nav>
     <div class="nav-inner">
       <div class="brand">
-        <img class="brand-logo" src="inetris-logo.jpeg" alt="INETRIS">
+        <img class="brand-logo" src="inetris-logo.png" alt="INETRIS">
         <span class="name">INETRIS <span>× GRACIANE PIMENTEL &amp; ANA PAULA</span></span>
       </div>
       <ul class="navlinks" id="navlinks">
@@ -450,8 +454,8 @@
           <div class="meta-value">12 encontros de 1h30 a 2h</div>
         </div>
       </div>
-      <p class="format-note"><b>Metodologia:</b> conteúdo técnico, estudo de casos reais, atividades práticas e acompanhamento da aplicação no escritório.</p>
       <img src="balanca-pessoas-lideres.png" alt="Balança equilibrando Pessoas e Líderes" style="display:block; width:100%; max-width:420px; height:auto; margin:48px auto 0;">
+      <p class="format-note" style="margin-top:40px;"><b>Metodologia:</b> conteúdo técnico, estudo de casos reais, atividades práticas e acompanhamento da aplicação no escritório.</p>
     </div>
   </section>
 
@@ -815,8 +819,8 @@
   </section>
 
   <!-- PARTE 11 — INVESTIMENTO -->
-  <section id="investimento" style="padding:0; min-height:auto; display:block;">
-    <img src="investimento-formacao-lideres.png" alt="Proposta comercial — Formação de Líderes — Investimento e forma de pagamento" style="width:100%; height:auto; display:block;">
+  <section id="investimento" style="padding:90px 60px;">
+    <img src="investimento-formacao-lideres.png" alt="Proposta comercial — Formação de Líderes — Investimento e forma de pagamento" style="display:block; width:100%; max-width:600px; height:auto; margin:0 auto; border:1px solid var(--border); border-radius:4px;">
   </section>
 
   <!-- PARTE 12 — GARANTIA -->
