@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graciane Pimentel & Ana Paula × INETRIS — Proposta de Estruturação e Desenvolvimento Empresarial</title>
+<link rel="icon" type="image/jpeg" href="inetris-logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #09274e;
+    --bg-deep: #061a35;
+    --bg-panel: rgba(255,255,255,0.05);
+    --border: rgba(212,175,55,0.20);
+    --border-strong: rgba(212,175,55,0.42);
+    --blue: #b98320;
+    --blue-bright: #d4af37;
+    --blue-glow: rgba(212,175,55,0.5);
+    --ink: #f7f5f0;
+    --ink-muted: #bcc6d6;
+    --ink-dim: #6d7890;
+    --danger: #d4af37;
+    --good: #d4af37;
+    --amber: #d4af37;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background-color:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(212,175,55,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,175,55,0.05) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.6;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse at 15% 0%, rgba(212,175,55,0.14), transparent 55%),
+                radial-gradient(ellipse at 95% 100%, rgba(212,175,55,0.10), transparent 50%);
+  }
+  .wrap{position:relative;z-index:1;}
+  a{color:inherit; text-decoration:none;}
+
+  .display{font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.98;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--blue-bright); display:flex; align-items:center; gap:14px;
+  }
+  .eyebrow .seal{
+    width:34px;height:34px; border:1px solid var(--border-strong); border-radius:50%;
+    display:flex;align-items:center;justify-content:center; font-size:11px;
+    color:var(--blue-bright); flex-shrink:0;
+    background:radial-gradient(circle, rgba(212,175,55,0.14), transparent 70%);
+  }
+
+  /* ===== NAV ===== */
+  nav{position:sticky; top:0; z-index:100; background:var(--bg-deep); border-bottom:1px solid var(--border);}
+  .nav-inner{position:relative; z-index:1; max-width:1440px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:16px 40px; gap:24px;}
+  .brand{display:flex; align-items:center; gap:12px; flex-shrink:0;}
+  .brand-logo{width:36px; height:36px; border-radius:8px; border:1px solid var(--border-strong); object-fit:cover; flex-shrink:0;}
+  .brand .name{font-family:'Inter',sans-serif; font-weight:800; font-size:17px; letter-spacing:0.02em; color:var(--ink);}
+  .brand .name span{color:var(--ink-dim); font-weight:600;}
+  .navlinks{display:flex; flex-wrap:wrap; gap:20px; list-style:none; justify-content:flex-end;}
+  .navlinks a{font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:var(--ink-muted); padding-bottom:6px; border-bottom:2px solid transparent; transition:color .2s, border-color .2s; white-space:nowrap;}
+  .navlinks a:hover, .navlinks a.active{color:var(--blue-bright); border-bottom-color:var(--blue);}
+
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:36px; height:36px; background:none; border:none; cursor:pointer; padding:0; flex-shrink:0;
+  }
+  .nav-toggle span{width:100%; height:2px; background:var(--ink); border-radius:2px; transition:transform .25s, opacity .25s;}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* ===== SECTION SHELL ===== */
+  section{min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:110px 60px 90px; position:relative; border-bottom:1px solid var(--border);}
+  .section-head{max-width:1320px; margin:0 auto 46px; width:100%;}
+  .section-head h2{font-size:46px; margin-top:16px; color:var(--ink);}
+  .section-lede{max-width:640px; color:var(--ink-muted); font-size:15.5px; line-height:1.65; margin-top:14px;}
+  .content{max-width:1320px; margin:0 auto; width:100%;}
+
+  /* ===== COVER ===== */
+  #cover{min-height:100vh; padding-top:150px; justify-content:center; border-bottom:1px solid var(--border); position:relative; overflow:hidden;}
+  .cover-watermark{
+    position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+    width:900px; max-width:85vw; height:auto; opacity:0.08; pointer-events:none; z-index:0;
+  }
+  .cover-top{position:relative; z-index:1; max-width:1320px;margin:0 auto;width:100%;}
+  .cover-title{font-size:58px; max-width:1150px; color:var(--ink); margin-top:18px;}
+  .cover-title .line2{display:block; color:var(--blue-bright); text-shadow:0 0 34px var(--blue-glow); margin-top:2px;}
+  .cover-attrib{margin-top:28px; font-size:14px; color:var(--ink-muted); display:flex; align-items:center; gap:12px;}
+  .cover-attrib::before{content:""; width:22px; height:1px; background:var(--blue-bright); display:inline-block;}
+
+  .quick-nav{display:flex; flex-wrap:wrap; gap:12px; margin-top:44px;}
+  .pill{
+    font-family:'Inter', sans-serif; font-size:12px; font-weight:700;
+    padding:10px 18px; border-radius:100px; border:1px solid var(--border-strong);
+    color:var(--ink-muted); background:rgba(255,255,255,0.02);
+    transition: all .2s;
+  }
+  .pill:hover{border-color:var(--blue); color:var(--ink);}
+  .pill.active{background:var(--blue); border-color:var(--blue); color:#fff;}
+
+  .meta-grid{display:flex; flex-wrap:wrap; gap:56px; margin-top:64px;}
+  .meta-label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--blue-bright);}
+  .meta-value{font-size:16px; font-weight:700; color:var(--ink); margin-top:8px;}
+
+  .card{background:var(--bg-panel); border:1px solid var(--border); padding:28px; border-radius:2px;}
+  .strategy-text{max-width:760px; font-size:15px; color:var(--ink-muted); line-height:1.75; margin-bottom:8px;}
+
+  /* ===== QUEM SOMOS ===== */
+  .manifesto{display:grid; grid-template-columns:60px 1fr; gap:0; max-width:900px;}
+  .manifesto .bar{border-left:2px solid var(--blue); margin-top:6px;}
+  .manifesto p{font-size:24px; line-height:1.55; color:var(--ink); font-weight:500; padding-left:34px;}
+  .manifesto p b{color:var(--blue-bright); font-weight:700;}
+
+  /* ===== EXPERIÊNCIA ===== */
+  .proof-stats{display:flex; gap:70px; margin-bottom:20px; flex-wrap:wrap;}
+  .proof-stats .stat{max-width:340px;}
+  .stat-headline{font-size:21px; font-weight:800; color:var(--ink);}
+  .stat-headline b{color:var(--blue-bright); font-weight:800;}
+  .stat-desc{font-size:13.5px; color:var(--ink-muted); margin-top:8px; line-height:1.55;}
+
+  .testimonial-heading{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--blue-bright); margin:44px 0 20px;
+  }
+  .testimonial-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .testimonial{padding:32px;}
+  .testimonial .quote-mark{font-family:'Anton', sans-serif; font-size:42px; color:var(--blue); line-height:1; margin-bottom:10px;}
+  .testimonial p{font-size:14.5px; line-height:1.7; color:var(--ink-muted); font-style:italic;}
+  .testimonial .role{margin-top:18px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue-bright);}
+
+  /* ===== POR ONDE COMEÇAR ===== */
+  .pillars-lead{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-dim); margin-top:36px; margin-bottom:18px;}
+  .pillars-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--border); border:1px solid var(--border);}
+  .pillar-box{background:var(--bg-deep); padding:28px 30px;}
+  .pillar-box .pn{font-family:'Anton', sans-serif; font-size:24px; color:var(--blue-bright); line-height:1;}
+  .pillar-box h4{font-family:'Inter',sans-serif; font-weight:800; font-size:16px; color:var(--ink); margin-top:10px;}
+  .pillar-box p{font-size:13.5px; color:var(--ink-muted); line-height:1.55; margin-top:6px;}
+  .lead-statement{
+    margin-top:40px; max-width:820px; font-family:'Anton', sans-serif; text-transform:uppercase;
+    font-size:30px; line-height:1.2; color:var(--ink);
+  }
+  .lead-statement .hl{color:var(--blue-bright); text-shadow:0 0 30px var(--blue-glow);}
+
+  /* ===== OBJETIVO GERAL ===== */
+  .obj-intro{max-width:820px; font-size:15.5px; color:var(--ink-muted); line-height:1.75; margin-bottom:40px;}
+  .obj-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  .obj-item{display:flex; gap:16px; align-items:flex-start; padding:18px 20px; background:var(--bg-panel); border:1px solid var(--border);}
+  .obj-item .num{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blue-bright); flex-shrink:0; padding-top:2px;}
+  .obj-item p{font-size:14px; color:var(--ink); line-height:1.5;}
+
+  /* ===== FORMATO DO PROGRAMA ===== */
+  .format-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--border); border:1px solid var(--border); margin-bottom:36px;}
+  .format-box{background:var(--bg-deep); padding:30px 26px;}
+  .format-box .meta-label{margin-bottom:2px;}
+  .format-box .meta-value{font-size:19px;}
+  .format-note{max-width:800px; font-size:14.5px; color:var(--ink-muted); line-height:1.7;}
+  .format-note b{color:var(--ink); font-weight:700;}
+
+  /* ===== ESTRUTURA DA FORMAÇÃO ===== */
+  .modules-note{max-width:820px; font-size:15.5px; color:var(--ink-muted); line-height:1.75; margin-bottom:40px;}
+  .modules-list{display:flex; flex-direction:column; gap:2px; background:var(--border); border:1px solid var(--border);}
+  .module-card{background:var(--bg-deep); padding:32px 36px;}
+  .module-head{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; margin-bottom:16px;}
+  .module-num{font-family:'Anton', sans-serif; font-size:30px; color:var(--blue-bright); line-height:1; flex-shrink:0;}
+  .module-title{font-family:'Inter',sans-serif; font-weight:800; font-size:19px; color:var(--ink);}
+  .module-meta{display:flex; flex-wrap:wrap; gap:28px; margin-bottom:20px;}
+  .module-meta .mm-label{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-dim);}
+  .module-meta .mm-value{font-size:14px; color:var(--ink); font-weight:600; margin-top:4px;}
+  .module-meta .mm-value.pillar{color:var(--blue-bright);}
+  .module-content-label{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:10px;}
+  .module-card ul{list-style:none; margin-bottom:18px;}
+  .module-card ul li{position:relative; padding-left:18px; font-size:13.5px; color:var(--ink-muted); line-height:1.6; margin-bottom:7px;}
+  .module-card ul li::before{content:"—"; position:absolute; left:0; color:var(--blue-bright);}
+  .module-note{background:rgba(212,175,55,0.08); border-left:2px solid var(--amber); padding:14px 18px; font-size:13.5px; color:var(--ink-muted); line-height:1.6; margin-bottom:18px;}
+  .module-note b{color:var(--amber); font-weight:700;}
+  .module-activity{background:rgba(212,175,55,0.07); border-left:2px solid var(--blue); padding:14px 18px; font-size:13.5px; color:var(--ink-muted); line-height:1.6;}
+  .module-activity b{color:var(--blue-bright); font-weight:700;}
+  .module-tool{background:rgba(212,175,55,0.08); border-left:2px solid var(--blue); padding:14px 18px; font-size:13.5px; color:var(--ink-muted); line-height:1.6; margin-top:18px;}
+  .module-tool b{color:var(--blue-bright); font-weight:700;}
+  .module-submeta{font-size:13.5px; color:var(--ink-muted); line-height:1.7; margin-bottom:18px;}
+  .matrix-label{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-dim); margin:22px 0 10px;}
+  .decision-matrix{width:100%; border-collapse:collapse; margin-bottom:6px;}
+  .decision-matrix th{font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue-bright); text-align:left; padding:10px 14px; border-bottom:1px solid var(--border-strong);}
+  .decision-matrix td{font-size:13.5px; color:var(--ink); padding:12px 14px; border-bottom:1px solid var(--border);}
+  .decision-matrix td:first-child{font-family:'Anton', sans-serif; font-size:16px; color:var(--blue-bright); width:60px;}
+  .decision-matrix tr:last-child td{border-bottom:none;}
+
+  /* ===== GARANTIA ===== */
+  .garantia-grid{display:grid; grid-template-columns:260px 1fr; gap:56px; align-items:start;}
+  .garantia-seal{width:100%; max-width:260px; height:auto;}
+  .garantia-text{font-size:15px; color:var(--ink-muted); line-height:1.75;}
+  .garantia-text p + p{margin-top:14px;}
+  .garantia-text b{color:var(--ink); font-weight:700;}
+  .garantia-list{list-style:none; margin:16px 0 0;}
+  .garantia-list li{position:relative; padding-left:18px; font-size:14px; color:var(--ink-muted); line-height:1.6; margin-bottom:8px;}
+  .garantia-list li::before{content:"—"; position:absolute; left:0; color:var(--blue-bright);}
+  .garantia-closing{margin-top:22px; font-size:17px; color:var(--ink); font-weight:600; font-style:italic; line-height:1.5;}
+
+  footer{padding:50px 60px; text-align:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-dim); letter-spacing:.06em;}
+
+  @media (max-width: 1080px){
+    .cover-title{font-size:40px;}
+    section{padding:100px 26px 70px;}
+    .navlinks{gap:14px;}
+    .navlinks a{font-size:10px;}
+    .meta-grid{gap:32px;}
+    .manifesto{grid-template-columns:1fr;}
+    .manifesto .bar{display:none;}
+    .manifesto p{padding-left:0; font-size:18px;}
+    .testimonial-grid{grid-template-columns:1fr;}
+    .proof-stats{gap:40px;}
+    .pillars-grid{grid-template-columns:1fr;}
+    .obj-grid{grid-template-columns:1fr;}
+    .format-grid{grid-template-columns:repeat(2,1fr);}
+    .module-card{padding:26px 22px;}
+    .module-title{font-size:16px;}
+    .module-meta{gap:20px;}
+    .decision-matrix th, .decision-matrix td{padding:9px 10px; font-size:12.5px;}
+    .garantia-grid{grid-template-columns:1fr; gap:28px;}
+    .garantia-seal{max-width:180px; margin:0 auto;}
+  }
+
+  @media (max-width: 640px){
+    .nav-inner{padding:12px 16px; gap:10px;}
+    .brand .name{font-size:13px;}
+    .brand .name span{display:none;}
+
+    section{padding:88px 18px 50px;}
+    .section-head h2{font-size:32px;}
+    .section-lede{font-size:14px;}
+    .eyebrow{font-size:10px; gap:10px;}
+    .eyebrow .seal{width:28px; height:28px; font-size:9px;}
+
+    #cover{padding-top:120px;}
+    .cover-watermark{width:340px; max-width:85vw; opacity:0.07;}
+    .cover-title{font-size:28px;}
+    .cover-attrib{font-size:12px;}
+    .pill{font-size:11px; padding:8px 14px;}
+    .meta-grid{gap:22px; margin-top:44px;}
+    .meta-value{font-size:14px;}
+
+    .card{padding:20px;}
+    .manifesto p{font-size:16px;}
+    .stat-headline{font-size:17px;}
+
+    footer{padding:36px 20px; font-size:10px;}
+  }
+
+  /* Menu hambúrguer — por último para vencer a cascata em telas estreitas */
+  @media (max-width: 900px){
+    .nav-toggle{display:flex;}
+    .navlinks{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0; background:var(--bg-deep);
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      max-height:75vh; overflow-y:auto; box-shadow:0 12px 20px rgba(0,0,0,0.35);
+    }
+    .navlinks.open{display:flex;}
+    .navlinks li{width:100%;}
+    .navlinks a{
+      display:block; width:100%; font-size:13px; padding:15px 24px;
+      border-bottom:1px solid var(--border); border-left:3px solid transparent;
+    }
+    .navlinks a:hover, .navlinks a.active{border-left-color:var(--blue); background:rgba(255,255,255,0.03);}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="brand">
+        <img class="brand-logo" src="inetris-logo.jpeg" alt="INETRIS">
+        <span class="name">INETRIS <span>× GRACIANE PIMENTEL &amp; ANA PAULA</span></span>
+      </div>
+      <ul class="navlinks" id="navlinks">
+        <li><a href="#quem-somos">Quem Somos</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
+        <li><a href="#por-onde-comecar">Por Onde Começar</a></li>
+        <li><a href="#objetivo-geral">Objetivo Geral</a></li>
+        <li><a href="#formato">Formato do Programa</a></li>
+        <li><a href="#estrutura-formacao">Estrutura da Formação</a></li>
+        <li><a href="#entregaveis">Entregáveis</a></li>
+        <li><a href="#avaliacao">Avaliação</a></li>
+        <li><a href="#condicao">Condição de Sucesso</a></li>
+        <li><a href="#investimento">Investimento</a></li>
+        <li><a href="#garantia">Garantia</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PARTE 1 — CAPA -->
+  <section id="cover" style="padding:0; min-height:auto; display:block;">
+    <img src="capa-formacao-lideres.png" alt="Proposta de Capacitação — Formação de Líderes — Autonomia, Processos e Gestão de Pessoas — Graciane Pimentel &amp; Ana Paula, Sociedade de Advogados" style="width:100%; height:auto; display:block;">
+  </section>
+
+  <!-- PARTE 2 — QUEM SOMOS -->
+  <section id="quem-somos">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">01</span> APRESENTAÇÃO</div>
+      <h2 class="display">Quem Somos</h2>
+    </div>
+    <div class="content">
+      <div class="manifesto">
+        <div class="bar"></div>
+        <p>No <b>INETRIS</b>, acreditamos que organizações extraordinárias não são fruto do acaso.<br>
+        Elas são construídas por pessoas preparadas para evoluir continuamente.<br><br>
+        Por isso, nossa atuação vai além da consultoria. Desenvolvemos ambientes onde <b>estratégia, cultura, liderança e gestão</b> caminham juntas para gerar resultados sustentáveis.<br><br>
+        Porque toda transformação começa de dentro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE 3 — EXPERIÊNCIA QUE GERA CONFIANÇA -->
+  <section id="experiencia">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">02</span> RESULTADOS E RELATOS</div>
+      <h2 class="display">Experiência que Gera Confiança</h2>
+    </div>
+    <div class="content">
+      <div class="proof-stats">
+        <div class="stat">
+          <div class="stat-headline"><b>Já atuamos em 14 empresas</b></div>
+          <p class="stat-desc">Atuação nos setores público e privado.</p>
+        </div>
+        <div class="stat">
+          <div class="stat-headline"><b>+800 colaboradores impactados</b></div>
+          <p class="stat-desc">Experiência prática no desenvolvimento de pessoas, lideranças e organizações.</p>
+        </div>
+      </div>
+
+      <div class="testimonial-heading">O que nossos clientes dizem</div>
+      <div class="testimonial-grid">
+        <div class="card testimonial">
+          <div class="quote-mark">“</div>
+          <p>Olhando para trás, a minha principal mudança na liderança foi entender que liderar não é só apagar incêndios no dia a dia — que era o que eu mais fazia — mas ter clareza de onde queremos chegar e como conduzir a equipe até lá. Antes, muitas decisões eram tomadas no automático ou no calor do momento para tentar conduzir o mais rápido possível a situação. Hoje, consigo olhar para a situação enxergando o negócio como um todo, com mais estratégia, intenção e paciência para desenvolver as pessoas ao meu redor e tomar a melhor decisão a longo prazo.</p>
+          <div class="role">Liderança</div>
+        </div>
+        <div class="card testimonial">
+          <div class="quote-mark">“</div>
+          <p>Desde o começo da mentoria, eu passei a olhar a empresa com uma visão de como ela realmente devia ser — como no início, quando eu tinha entrado na empresa. Comecei a pensar no todo, entender melhor o que está funcionando e também qual é o meu papel nisso. A principal mudança, para mim, foi perceber que eu não preciso tentar resolver tudo sozinha, mas, se necessário, eu vou lá e faço; se errar, erro rápido.</p>
+          <div class="role">Colaborador</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE 4 — POR ONDE COMEÇAR -->
+  <section id="por-onde-comecar">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">03</span> METODOLOGIA</div>
+      <h2 class="display">Por Onde Começar</h2>
+      <p class="section-lede">Para transformar essas duas colaboradoras em líderes, não começamos diretamente por gestão de pessoas. Antes de liderar pessoas, elas precisam aprender a liderar o próprio trabalho: compreender o funcionamento do escritório, dominar os processos e decidir dentro de limites claros.</p>
+    </div>
+    <div class="content">
+      <div class="pillars-lead">Autonomia não nasce de um treinamento motivacional. Ela se sustenta sobre quatro pilares</div>
+      <div class="pillars-grid">
+        <div class="pillar-box">
+          <div class="pn">01</div>
+          <h4>Conhecimento</h4>
+          <p>Saber o que se faz e por quê.</p>
+        </div>
+        <div class="pillar-box">
+          <div class="pn">02</div>
+          <h4>Clareza de responsabilidade</h4>
+          <p>Saber o que é seu.</p>
+        </div>
+        <div class="pillar-box">
+          <div class="pn">03</div>
+          <h4>Segurança para decidir</h4>
+          <p>Saber até onde pode ir.</p>
+        </div>
+        <div class="pillar-box">
+          <div class="pn">04</div>
+          <h4>Responsabilização pelo resultado</h4>
+          <p>Responder pelo que decidiu.</p>
+        </div>
+      </div>
+      <p class="lead-statement">Quem lidera não espera ordens. <span class="hl">Assume direção.</span></p>
+    </div>
+  </section>
+
+  <!-- PARTE 5 — OBJETIVO GERAL -->
+  <section id="objetivo-geral">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">04</span> OBJETIVOS</div>
+      <h2 class="display">Objetivo Geral</h2>
+    </div>
+    <div class="content">
+      <p class="obj-intro">Preparar as duas colaboradoras para assumirem responsabilidades de liderança, desenvolverem visão sistêmica, tomarem decisões dentro do próprio nível de atuação, acompanharem processos e pessoas e atuarem como guardiãs da cultura do escritório. Ao final, espera-se que elas consigam:</p>
+      <div class="obj-grid">
+        <div class="obj-item"><span class="num">01</span><p>Agir sem esperar ordens para tudo</p></div>
+        <div class="obj-item"><span class="num">02</span><p>Diferenciar o que podem decidir, o que devem comunicar e o que precisa de validação</p></div>
+        <div class="obj-item"><span class="num">03</span><p>Conhecer os principais processos do escritório</p></div>
+        <div class="obj-item"><span class="num">04</span><p>Identificar problemas antes que eles cresçam</p></div>
+        <div class="obj-item"><span class="num">05</span><p>Apresentar problemas acompanhados de possíveis soluções</p></div>
+        <div class="obj-item"><span class="num">06</span><p>Organizar, acompanhar e cobrar entregas</p></div>
+        <div class="obj-item"><span class="num">07</span><p>Dar feedback e conduzir conversas profissionais</p></div>
+        <div class="obj-item"><span class="num">08</span><p>Desenvolver outras pessoas</p></div>
+        <div class="obj-item"><span class="num">09</span><p>Buscar conhecimento por iniciativa própria</p></div>
+        <div class="obj-item"><span class="num">10</span><p>Assumir responsabilidade pelo resultado, e não apenas pela execução da tarefa</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE 6 — FORMATO DO PROGRAMA -->
+  <section id="formato">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">05</span> ESTRUTURA</div>
+      <h2 class="display">Formato do Programa</h2>
+    </div>
+    <div class="content">
+      <div class="format-grid">
+        <div class="format-box">
+          <div class="meta-label">Público</div>
+          <div class="meta-value">Duas colaboradoras do escritório</div>
+        </div>
+        <div class="format-box">
+          <div class="meta-label">Duração</div>
+          <div class="meta-value">6 meses</div>
+        </div>
+        <div class="format-box">
+          <div class="meta-label">Frequência</div>
+          <div class="meta-value">Dois encontros mensais</div>
+        </div>
+        <div class="format-box">
+          <div class="meta-label">Total</div>
+          <div class="meta-value">12 encontros de 1h30 a 2h</div>
+        </div>
+      </div>
+      <p class="format-note"><b>Metodologia:</b> conteúdo técnico, estudo de casos reais, atividades práticas e acompanhamento da aplicação no escritório.</p>
+      <img src="balanca-pessoas-lideres.png" alt="Balança equilibrando Pessoas e Líderes" style="display:block; width:100%; max-width:420px; height:auto; margin:48px auto 0;">
+    </div>
+  </section>
+
+  <!-- PARTE 7 — ESTRUTURA DA FORMAÇÃO -->
+  <section id="estrutura-formacao">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">06</span> PROGRAMA</div>
+      <h2 class="display">Estrutura da Formação</h2>
+      <p class="section-lede">Os doze módulos avançam de forma progressiva: primeiro a líder aprende a liderar o próprio trabalho, depois os processos e, por fim, as pessoas. Cada módulo se apoia em um dos quatro pilares da autonomia.</p>
+    </div>
+    <div class="content">
+      <div class="modules-list">
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">01</div>
+            <div class="module-title">De executora a responsável pelo resultado</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">O que muda quando se começa a liderar</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Clareza de responsabilidade</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>O que muda quando uma pessoa começa a exercer liderança</li>
+            <li>Liderança sem depender de cargo</li>
+            <li>Diferença entre executar, acompanhar e garantir o resultado</li>
+            <li>Maturidade profissional</li>
+            <li>Protagonismo e senso de responsabilidade</li>
+            <li>Comportamentos atuais que limitam a autonomia</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> diagnóstico individual de competências e construção de um PDI para cada colaboradora.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">02</div>
+            <div class="module-title">Cultura organizacional aplicada</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Como transformar cultura em comportamento diário</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Conhecimento</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Propósito do escritório: cuidar dos segurados, devolvendo dignidade e promovendo segurança</li>
+            <li>Missão, visão, valores e meta do escritório</li>
+            <li>O papel da líder como guardiã da cultura</li>
+            <li>Como tomar decisões coerentes com a cultura</li>
+            <li>Sigilo, ética, respeito, organização e postura profissional</li>
+            <li>"O combinado não sai caro": clareza, responsabilidade e cumprimento dos acordos</li>
+          </ul>
+          <div class="module-note"><b>Ressalva importante:</b> antes desse encontro é necessário unificar a redação oficial das diretrizes do escritório, especialmente missão, visão de mundo e a definição de "Compromisso com resultados" como valor.</div>
+          <div class="module-activity"><b>Atividade prática:</b> análise de situações reais e identificação da conduta esperada em cada uma.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">03</div>
+            <div class="module-title">Visão sistêmica do escritório</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Entender o todo para decidir melhor</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Conhecimento</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Como o escritório funciona como sistema</li>
+            <li>Áreas, funções e responsabilidades</li>
+            <li>Jornada do cliente dentro do escritório</li>
+            <li>Como o trabalho de uma pessoa impacta o das demais</li>
+            <li>Pontos críticos, riscos e gargalos</li>
+            <li>Relação entre atendimento, operação jurídica, administrativo, financeiro e resultados</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> construção visual da jornada de um cliente, do primeiro contato à conclusão do atendimento ou processo.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">04</div>
+            <div class="module-title">Gestão e melhoria de processos</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Liderar também é garantir que o processo funcione</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Conhecimento</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>O que é um processo</li>
+            <li>Entrada, atividade, responsável, prazo e resultado esperado</li>
+            <li>Como documentar processos</li>
+            <li>Como identificar falhas e retrabalho</li>
+            <li>Padronização e melhoria contínua</li>
+            <li>Checklists, fluxos e pontos de controle</li>
+            <li>Como agir quando o processo não está sendo cumprido</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> cada colaboradora deverá mapear e apresentar pelo menos um processo real do escritório.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">05</div>
+            <div class="module-title">Autonomia e níveis de decisão</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Decidir sem ultrapassar limites</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Segurança para decidir</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>O que significa ter autonomia</li>
+            <li>Decisão baseada em fatos, critérios e riscos</li>
+            <li>Consequências de decidir e de não decidir</li>
+            <li>Quando agir imediatamente</li>
+            <li>Quando decidir e comunicar</li>
+            <li>Quando apresentar opções</li>
+            <li>Quando solicitar autorização</li>
+            <li>Responsabilidade pelas consequências</li>
+            <li>Como aprender com decisões equivocadas</li>
+          </ul>
+          <p class="module-submeta">A intenção é fazer com que elas avancem gradativamente do hábito de esperar validação para a capacidade de decidir com responsabilidade.</p>
+          <div class="matrix-label">Matriz de Autonomia e Decisão</div>
+          <table class="decision-matrix">
+            <thead>
+              <tr><th>Nível</th><th>Conduta esperada</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>01</td><td>Identificar e comunicar o problema</td></tr>
+              <tr><td>02</td><td>Identificar e apresentar alternativas</td></tr>
+              <tr><td>03</td><td>Recomendar uma solução e pedir validação</td></tr>
+              <tr><td>04</td><td>Decidir, agir e comunicar</td></tr>
+              <tr><td>05</td><td>Decidir, acompanhar e responder pelo resultado</td></tr>
+            </tbody>
+          </table>
+          <p class="module-submeta">Cada tipo de decisão do escritório é classificado em um destes níveis. A líder sabe, de antemão, se aquilo é para comunicar, recomendar ou decidir — e passa a operar em níveis mais altos à medida que amadurece.</p>
+          <div class="module-tool"><b>Ferramenta principal:</b> Matriz de Autonomia e Decisão (apresentada a seguir).</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">06</div>
+            <div class="module-title">Solução de problemas</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Não trazer apenas problemas, mas possibilidades</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Responsabilização pelo resultado</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Identificação da causa do problema</li>
+            <li>Diferença entre sintoma e causa</li>
+            <li>Levantamento de informações</li>
+            <li>Avaliação de riscos</li>
+            <li>Construção de alternativas</li>
+            <li>Plano de ação</li>
+            <li>Prevenção da repetição do problema</li>
+            <li>Comunicação antecipada de riscos</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> resolução de um problema real do escritório utilizando uma metodologia estruturada.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">07</div>
+            <div class="module-title">Planejamento, prioridades e gestão da rotina</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Liderança exige organização e acompanhamento</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Clareza de responsabilidade</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Como definir prioridades</li>
+            <li>Urgente, importante e estratégico</li>
+            <li>Planejamento semanal</li>
+            <li>Gestão de prazos</li>
+            <li>Distribuição e acompanhamento de demandas</li>
+            <li>Reuniões rápidas de alinhamento</li>
+            <li>Indicadores básicos</li>
+            <li>Como cobrar sem assumir a tarefa do outro</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> implantação de uma rotina semanal de acompanhamento com prioridades, responsáveis, prazos e status.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">08</div>
+            <div class="module-title">Comunicação de liderança</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Falar o que precisa ser dito, da maneira correta</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Segurança para decidir</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Comunicação verdadeira, necessária e respeitosa</li>
+            <li>Clareza na orientação</li>
+            <li>Escuta ativa</li>
+            <li>Alinhamento de expectativas</li>
+            <li>Comunicação de erros e riscos</li>
+            <li>Conversas difíceis</li>
+            <li>Comunicação assertiva</li>
+            <li>Postura diante de conflitos</li>
+            <li>Registro de acordos e decisões</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> simulação de conversas reais do escritório.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">09</div>
+            <div class="module-title">Feedback e acompanhamento de desempenho</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Acompanhar pessoas para gerar evolução</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Responsabilização pelo resultado</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>O papel do feedback</li>
+            <li>Feedback de reconhecimento, correção e desenvolvimento</li>
+            <li>Como falar sobre comportamento e resultado</li>
+            <li>Como evitar julgamento pessoal</li>
+            <li>Definição de combinados</li>
+            <li>Acompanhamento de evolução</li>
+            <li>Evidências de desempenho</li>
+            <li>Responsabilização sem humilhação</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> cada colaboradora deverá preparar e realizar uma conversa de feedback acompanhada.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">10</div>
+            <div class="module-title">Delegação e desenvolvimento de pessoas</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Liderar não é fazer tudo</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Responsabilização pelo resultado</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Diferença entre delegar e repassar tarefas</li>
+            <li>Como explicar o resultado esperado</li>
+            <li>Definição de prazo, padrão e responsabilidade</li>
+            <li>Nível de autonomia de cada pessoa</li>
+            <li>Acompanhamento sem microgerenciamento</li>
+            <li>Como ensinar uma atividade</li>
+            <li>Como corrigir sem retirar a responsabilidade</li>
+            <li>Formação de sucessores</li>
+          </ul>
+          <div class="module-activity"><b>Atividade prática:</b> delegação acompanhada de uma atividade real.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">11</div>
+            <div class="module-title">Aprendizagem contínua e repertório de gestão</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">A líder precisa aprender antes de cobrar evolução</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Conhecimento</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Responsabilidade individual pela própria formação</li>
+            <li>Como criar rotina de estudo</li>
+            <li>Leitura e interpretação de conteúdos de gestão</li>
+            <li>Como transformar conhecimento em prática</li>
+            <li>Registro de aprendizados</li>
+            <li>Compartilhamento de conhecimento com a equipe</li>
+            <li>Liderança como processo contínuo de desenvolvimento</li>
+          </ul>
+          <p class="module-submeta">Não acredito que seja possível simplesmente "despertar nelas a vontade de estudar". O que podemos fazer é criar uma cultura de aprendizagem com expectativa, acompanhamento e aplicação prática.</p>
+          <div class="module-activity"><b>Atividade permanente:</b> cada colaboradora deverá estudar um conteúdo mensal, apresentar os principais aprendizados e demonstrar onde aplicou aquele conhecimento.</div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-head">
+            <div class="module-num">12</div>
+            <div class="module-title">Consolidação da liderança</div>
+          </div>
+          <div class="module-meta">
+            <div><div class="mm-label">Tema</div><div class="mm-value">Assumindo o compromisso de liderar</div></div>
+            <div><div class="mm-label">Pilar de autonomia</div><div class="mm-value pillar">Responsabilização pelo resultado</div></div>
+          </div>
+          <div class="module-content-label">Conteúdos</div>
+          <ul>
+            <li>Revisão das competências desenvolvidas</li>
+            <li>Evolução da autonomia</li>
+            <li>Análise das decisões tomadas</li>
+            <li>Resultados gerados</li>
+            <li>Pontos que ainda precisam ser desenvolvidos</li>
+            <li>Compromisso individual de liderança</li>
+            <li>Plano de continuidade por 90 dias</li>
+          </ul>
+          <div class="module-activity"><b>Entrega final:</b> apresentação de um projeto de melhoria implementado por cada colaboradora no escritório.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE 8 — ENTREGÁVEIS DA CAPACITAÇÃO -->
+  <section id="entregaveis">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">07</span> ENTREGÁVEIS</div>
+      <h2 class="display">Entregáveis da Capacitação</h2>
+      <p class="section-lede">Ao longo do programa, seriam construídos:</p>
+    </div>
+    <div class="content">
+      <div class="obj-grid">
+        <div class="obj-item"><span class="num">01</span><p>Diagnóstico inicial das duas colaboradoras</p></div>
+        <div class="obj-item"><span class="num">02</span><p>PDI individual</p></div>
+        <div class="obj-item"><span class="num">03</span><p>Matriz de Autonomia e Decisão</p></div>
+        <div class="obj-item"><span class="num">04</span><p>Mapa dos principais processos</p></div>
+        <div class="obj-item"><span class="num">05</span><p>Jornada do cliente</p></div>
+        <div class="obj-item"><span class="num">06</span><p>Rotina de planejamento e acompanhamento</p></div>
+        <div class="obj-item"><span class="num">07</span><p>Modelo de análise e solução de problemas</p></div>
+        <div class="obj-item"><span class="num">08</span><p>Estrutura de feedback</p></div>
+        <div class="obj-item"><span class="num">09</span><p>Plano mensal de estudos</p></div>
+        <div class="obj-item"><span class="num">10</span><p>Projeto prático de melhoria</p></div>
+        <div class="obj-item"><span class="num">11</span><p>Avaliação inicial, intermediária e final da evolução</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE 9 — COMO AVALIAR SE O TREINAMENTO FUNCIONOU -->
+  <section id="avaliacao">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">08</span> AVALIAÇÃO</div>
+      <h2 class="display">Como Avaliar se o Treinamento Funcionou</h2>
+      <p class="section-lede">A avaliação não deve considerar apenas a participação nos encontros. Precisamos observar mudança de comportamento e resultado:</p>
+    </div>
+    <div class="content">
+      <div class="obj-grid">
+        <div class="obj-item"><span class="num">01</span><p>Redução da necessidade de validação para situações rotineiras</p></div>
+        <div class="obj-item"><span class="num">02</span><p>Número de decisões tomadas dentro do escopo</p></div>
+        <div class="obj-item"><span class="num">03</span><p>Problemas comunicados com antecedência</p></div>
+        <div class="obj-item"><span class="num">04</span><p>Problemas apresentados com propostas de solução</p></div>
+        <div class="obj-item"><span class="num">05</span><p>Cumprimento de prazos</p></div>
+        <div class="obj-item"><span class="num">06</span><p>Processos documentados ou melhorados</p></div>
+        <div class="obj-item"><span class="num">07</span><p>Qualidade do acompanhamento das demais pessoas</p></div>
+        <div class="obj-item"><span class="num">08</span><p>Aplicação dos conteúdos estudados</p></div>
+        <div class="obj-item"><span class="num">09</span><p>Capacidade de conduzir feedbacks</p></div>
+        <div class="obj-item"><span class="num">10</span><p>Percepção de Ana Paula e Graciane sobre a evolução das duas</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTE 10 — CONDIÇÃO PARA O PROGRAMA FUNCIONAR -->
+  <section id="condicao">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">09</span> CONDIÇÃO DE SUCESSO</div>
+      <h2 class="display">Condição para o Programa Funcionar</h2>
+    </div>
+    <div class="content">
+      <p class="obj-intro">Minha principal recomendação é uma só: este treinamento precisa caminhar junto com uma delegação real de autoridade. Se as decisões que estavam dentro do escopo das colaboradoras continuarem sendo centralizadas ou revogadas, elas adquirirão conhecimento, mas não desenvolverão autonomia.<br><br>A formação precisa deixar claro não apenas o que se espera delas, mas também até onde elas têm autorização para decidir.</p>
+      <p class="lead-statement">Autonomia não se ensina em sala. <span class="hl">Se autoriza na prática.</span></p>
+    </div>
+  </section>
+
+  <!-- PARTE 11 — INVESTIMENTO -->
+  <section id="investimento" style="padding:0; min-height:auto; display:block;">
+    <img src="investimento-formacao-lideres.png" alt="Proposta comercial — Formação de Líderes — Investimento e forma de pagamento" style="width:100%; height:auto; display:block;">
+  </section>
+
+  <!-- PARTE 12 — GARANTIA -->
+  <section id="garantia">
+    <div class="section-head">
+      <div class="eyebrow"><span class="seal">10</span> COMPROMISSO INETRIS</div>
+      <h2 class="display">Garantia INETRIS</h2>
+      <p class="section-lede">Nosso compromisso com o combinado.</p>
+    </div>
+    <div class="content">
+      <div class="garantia-grid">
+        <img class="garantia-seal" src="selo-garantia-inetris.png" alt="Selo de Garantia de Qualidade INETRIS">
+        <div class="garantia-text">
+          <p>Acreditamos que uma parceria de transformação precisa ter responsabilidade dos dois lados. Por isso:</p>
+          <p>Se ao final do projeto as entregas e resultados acordados não forem cumpridos pelo <b>INETRIS</b>, garantimos a devolução do investimento, conforme as condições estabelecidas em contrato.</p>
+          <p>A garantia será vinculada a:</p>
+          <ul class="garantia-list">
+            <li>Entregáveis definidos na proposta e no contrato</li>
+            <li>Prazos acordados</li>
+            <li>Critérios objetivos de cumprimento</li>
+            <li>Responsabilidades de cada parte</li>
+            <li>Condições específicas para aplicação da garantia</li>
+          </ul>
+          <p class="garantia-closing">Mais do que prometer transformação, assumimos responsabilidade pelo que foi contratado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Proposta preparada por INETRIS para Graciane Pimentel &amp; Ana Paula — Sociedade de Advogados · Documento de uso interno · 2026
+  </footer>
+
+</div>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navlinksEl = document.getElementById('navlinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navlinksEl.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      navlinksEl.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.navlinks a, .quick-nav a');
+
+  const setActive = () => {
+    let current = '';
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if(rect.top <= 140 && rect.bottom > 140){
+        current = sec.id;
+      }
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  };
+
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+</script>
+</body>
+</html>
